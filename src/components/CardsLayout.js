@@ -1,9 +1,10 @@
 import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import _ from "lodash";
+import Canvas from "./Canvas"
 
 const ReactGridLayout = WidthProvider(RGL);
-const originalLayout = getFromFirebase("layout") || getFromLS("layout") || [];
+const originalLayout = getFromLS("layout") || getFromFirebase("layout") || [];
 
 export default class CardLayout extends React.PureComponent {
   static defaultProps = {
@@ -24,7 +25,9 @@ export default class CardLayout extends React.PureComponent {
           x: i * 2,
           y: 0,
           w: 2,
-          h: 2
+          h: 2,
+          isDraggable: false,
+          draggableHandle: ".dragHandle"
         };
       }),
       newCounter: 0
@@ -53,16 +56,37 @@ export default class CardLayout extends React.PureComponent {
   }
 
   createElement(el) {
+    const dragStyle = {
+      position: "absolute",
+      left: "2px",
+      top: 0,
+      cursor: "grab"
+    }
     const removeStyle = {
       position: "absolute",
       right: "2px",
       top: 0,
       cursor: "pointer"
     };
+    const canvasStyle = {
+      position: "absolute",
+      border: "1px solid blue"
+    }
     const i = el.i;
     return (
       <div key={i} data-grid={el}>
-        {<span className="text">{i}</span>}
+        <span className="text">{i}</span>
+        <span className="canvas" style={canvasStyle}>
+          <Canvas />
+        </span>
+        {/* <span 
+          className="dragHandle"
+          style={dragStyle}
+          //onMouseEnter={this.onDragItem.bind(this, i)}
+          //onMouseLeave={this.onDropItem.bind(this, i)}
+        >
+          =
+        </span> */}
         <span
           className="remove"
           style={removeStyle}
@@ -74,6 +98,20 @@ export default class CardLayout extends React.PureComponent {
     );
   }
 
+  // onDragItem(i) {
+  //   console.log("setting", i, "to draggable");
+  //   console.log(this.state.items);
+  //   console.log(this.state.items.map(item => item.i === i ? { ...item, isDraggable: true } : item));
+  //   this.setState({
+  //     items: this.state.items.map(item => item.i === i ? {...item, isDraggable: true} : item)
+  //   });
+  //   console.log(this.state.items);
+  // }
+
+  // onDropItem(i) {
+  //   console.log("setting", i, "to undraggable");
+  // }
+
   onAddItem() {
     /*eslint no-console: 0*/
     console.log("adding", "n" + this.state.newCounter);
@@ -82,9 +120,10 @@ export default class CardLayout extends React.PureComponent {
       items: this.state.items.concat({
         i: "n" + this.state.newCounter,
         x: (this.state.items.length * 2) % (this.state.cols || 12),
-        y: Infinity, // puts it at the bottom
+        y: 0, // puts it at the bottom
         w: 2,
-        h: 2
+        h: 2,
+        draggableCancel: ".text"
       }),
       // Increment the counter to ensure key is always unique.
       newCounter: this.state.newCounter + 1
