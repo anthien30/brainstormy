@@ -1,15 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Canvas from "./components/Canvas.js";
-import LoginPage from "./components/LoginPage";
-import RandomName from "./components/LoginPage";
+import Canvas from "./components/Canvas";
+import Google from "./components/Google";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Canvas /> */}
-        <LoginPage />
+        <Google />
       </header>
     </div>
   );
