@@ -17,7 +17,7 @@ function Canvas() {
         canvas.style.width = `${window.innerWidth}px`
         canvas.style.height = `${window.innerHeight}px`
 
-        const context = canvas.getContext("2d")
+        const context = canvas.getContext("2d") //gets the 2d context
         context.scale(2,2)
         context.lineCap = "round"  //butt, round, square
         context.strokeStyle = "black" //Color of Stroke
@@ -28,7 +28,7 @@ function Canvas() {
     const startDrawing = ({nativeEvent}) => {
         const {offsetX,offsetY} = nativeEvent;
         contextRef.current.beginPath()
-        contextRef.current.moveTo(offsetX,offsetY)
+        contextRef.current.moveTo(offsetX,offsetY) //Begins path at current mouse Position
         setIsDrawing(true)
     }
     const finishDrawing = () => {
@@ -40,8 +40,8 @@ function Canvas() {
             return
         }
         const {offsetX,offsetY} = nativeEvent;
-        contextRef.current.lineTo(offsetX,offsetY)
-        contextRef.current.stroke()
+        contextRef.current.lineTo(offsetX,offsetY) //Moves path to current mouse Position
+        contextRef.current.stroke() //Renders the Stroke
     }
     return (
         <canvas
