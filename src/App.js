@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import ExampleLayout from './ExampleLayout';
+import CardsLayout from './CardsLayout';
 
 function App() {
   return (
     <div className="App">
-      <ExampleLayout />
+      <CardsLayout />
     </div>
   );
 }
