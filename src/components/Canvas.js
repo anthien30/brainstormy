@@ -5,7 +5,8 @@ function Canvas() {
     const canvasRef = useRef(null) //Create Ref object to canvas
     const contextRef = useRef(null) //Create Ref object to context
     const [isDrawing,setIsDrawing] = useState(false) 
-
+    const [CanDraw, setCanDraw] = useState(false)
+    const [buttonStr,setButtonStr] = useState("Draw")
     useEffect(() => {
         /*Adjust the height and width of the canvas here to fit the "post-it" notes
         canvas.width and canvas.height are html attributes
@@ -36,20 +37,34 @@ function Canvas() {
         setIsDrawing(false)
     }
     const draw = ({nativeEvent})  => {
-        if(!isDrawing){
+        if(!isDrawing || !CanDraw){
             return
         }
         const {offsetX,offsetY} = nativeEvent;
         contextRef.current.lineTo(offsetX,offsetY) //Moves path to current mouse Position
         contextRef.current.stroke() //Renders the Stroke
     }
+    const clickHandler = () => {
+        if(!CanDraw){
+            setCanDraw(true)
+            setButtonStr("Stop Draw")
+        }else{
+            setCanDraw(false)
+            setButtonStr("Draw")
+        }
+    }
     return (
-        <canvas
+        <div>
+             <canvas
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}
             ref={canvasRef}
-        />
+            />
+            <div>
+                <button type="button" onClick={clickHandler}>{buttonStr}</button>
+            </div>
+        </div>
     )
 }
 
