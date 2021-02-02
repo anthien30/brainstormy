@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Canvas from "./components/Canvas";
-import Google from "./components/Google";
 import LoginPage from "./components/LoginPage";
 
+import logo from "./logo.svg";
+import Canvas from "./components/Canvas";
+import Google from "./components/Google";
+import Test from "./components/Test";
 function App() {
   return (
     <div className="App">
@@ -11,6 +12,7 @@ function App() {
         <LoginPage>
           <Google />
         </LoginPage>
+        <Test />
       </header>
     </div>
   );
