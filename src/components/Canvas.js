@@ -50,7 +50,7 @@ function Canvas(props) {
         contextRef.current.lineTo(offsetX,offsetY) //Moves path to current mouse Position
         contextRef.current.stroke() //Renders the Stroke
     }
-    const clickHandler = () => {
+    const clickHandler1 = () => {
         if(!CanDraw){
             setCanDraw(true)
             setButtonStr("Stop Draw")
@@ -58,6 +58,11 @@ function Canvas(props) {
             setCanDraw(false)
             setButtonStr("Draw")
         }
+    }
+    const clickHandler2 = () => {
+        const canvas = canvasRef.current
+        const context = canvas.getContext("2d")
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
     console.log("Props.width: " + props.width)
     console.log("Props.height: " + props.height)
@@ -70,7 +75,9 @@ function Canvas(props) {
             ref={canvasRef}
             />
             <div>
-                <button type="button" onClick={clickHandler}>{buttonStr}</button>
+                <button type="button" onClick={clickHandler1}>{buttonStr}</button>
+                <div style={{width: '50px',height: 'auto', display: "inline-block"}}/>
+                <button type="button" onClick={clickHandler2}>Clear</button>
             </div>
         </div>
     )
