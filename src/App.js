@@ -12,7 +12,7 @@ function App() {
         <LoginPage>
           <Google />
         </LoginPage>
-        <Test />
+        {/* <Test /> */}
       </header>
     </div>
   );
