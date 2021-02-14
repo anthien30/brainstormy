@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { Link } from "react-router-dom";
 
-export default function Google() {
+export default function Google(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [name, setName] = useState();
 

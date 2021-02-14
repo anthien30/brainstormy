@@ -71,3 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Packages Downloaded
 npm i react-google-login
+npm i --save socket.io
