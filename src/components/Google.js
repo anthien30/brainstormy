@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { Link } from "react-router-dom";
+import { firebase, db } from './FirebaseConfig'
+
 
 export default function Google(props) {
   const [loggedIn, setLoggedIn] = useState(false);

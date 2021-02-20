@@ -1,0 +1,7 @@
+17:23:42.120 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+17:23:42.250 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+17:24:08.670 [Thread-1] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+17:24:08.676 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: brainstormy-a370a
+17:24:08.685 [NamespaceSystem-akka.actor.default-dispatcher-11] INFO com.firebase.core.namespace.NamespaceActor - Stopping namespace actor for brainstormy-a370a
+17:24:08.686 [NamespaceSystem-akka.actor.default-dispatcher-11] INFO com.firebase.core.namespace.NamespaceActor - Gauges removed for brainstormy-a370a
+17:24:08.692 [Thread-1] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

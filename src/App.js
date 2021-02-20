@@ -20,7 +20,7 @@ function App() {
                 path="/"
                 exact
                 component={() => (
-                  <LoginPage>
+                  <LoginPage>   
                     <Google />
                   </LoginPage>
                 )}

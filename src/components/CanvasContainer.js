@@ -9,7 +9,6 @@ function CanvasContainer() {
     const [state,dispatch] = useContext(Context)
     useEffect(() => {
         setDimensions({width:ref.current.clientWidth, height:ref.current.clientHeight})
-        console.log("From Container " + state.googleObj.googleId)
     },[])
     return (
         <div style={{height: "500px", width: "50%", backgroundColor: "powderblue"}} ref ={ref}>
