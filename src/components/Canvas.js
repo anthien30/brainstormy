@@ -43,15 +43,11 @@ function Canvas(props) {
                         if(child.key == props.uid){
                             return;
                         }
-                        // console.log("X1 and Y1: " + child.val().x1 + " " + child.val().y1)
-                        // console.log("X2 and Y2: " + child.val().x2 + " " + child.val().y2)
-                        // console.log("____________________________________________")
                         contextRef.current.beginPath();
                         contextRef.current.moveTo(child.val().x1,child.val().y1);
-                        // contextRef.current.beginPath();
                         contextRef.current.lineTo(child.val().x2,child.val().y2);
                         contextRef.current.stroke();
-                        // contextRef.current.closePath();
+                        contextRef.current.closePath();
                     }
                   });
                   if(b){
