@@ -4,7 +4,7 @@ import Reducer from './Reducer';
 //Contains the global state store for google object
 const initialState = {
   googleObj: {},
-  colorHexCode: '#417505',
+  colorHexCode: '#000000',
 };
 
 const Store = ({ children }) => {

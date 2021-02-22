@@ -29,9 +29,9 @@ function Canvas(props) {
   let canvas, context;
   useEffect(() => {
     console.log(state.colorHexCode);
-    if (context) {
+    if (contextRef.current) {
       console.log(state.colorHexCode);
-      context.strokeStyle = state.colorHexCode;
+      contextRef.current.strokeStyle = state.colorHexCode;
     }
   }, [state.colorHexCode]);
   //Sets up the canvas
