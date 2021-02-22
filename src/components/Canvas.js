@@ -37,19 +37,6 @@ function Canvas(props) {
   //Sets up the canvas
   useEffect(() => {
     // //Sets up the canvas
-    // const canvas = canvasRef.current;
-    // canvas.width = props.width * 2;
-    // canvas.height = props.height * 2;
-    // canvas.style.width = `${props.width}px`;
-    // canvas.style.height = `${props.height}px`;
-
-    // const context = canvas.getContext('2d'); //gets the 2d context
-    // context.scale(2, 2);
-    // context.lineCap = 'round'; //butt, round, square
-    // //context.strokeStyle = 'black'; //Color of Stroke
-    // context.strokeStyle = state.colorHexCode;
-    // context.lineWidth = 10; //Line Width
-    // contextRef.current = context;
     canvas = canvasRef.current;
     canvas.width = props.width * 2;
     canvas.height = props.height * 2;
@@ -59,7 +46,6 @@ function Canvas(props) {
     context = canvas.getContext('2d'); //gets the 2d context
     context.scale(2, 2);
     context.lineCap = 'round'; //butt, round, square
-    //context.strokeStyle = 'black'; //Color of Stroke
     context.strokeStyle = state.colorHexCode;
     context.lineWidth = 10; //Line Width
     contextRef.current = context;
