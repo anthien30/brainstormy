@@ -8,8 +8,8 @@ import { Context } from '../Store';
 
 //Pass 2 props: height and width
 function Canvas(props) {
-    // const canvasRef = useRef([]); //Create Ref object to canvas
-    const canvasRef = useRef([]);
+    const canvasRef = useRef([]); //Create Ref object to canvas
+    const backgroundCanvasRef = useRef(); //Create Ref object to background canvas
     const contextRef = useRef(null); //Create Ref object to context
     const parentRef = useRef(null); //Create Ref object to parent component
     const [isDrawing, setIsDrawing] = useState(false); //isDrawing State
@@ -34,17 +34,10 @@ function Canvas(props) {
 
     //Sets up the canvas
     useEffect(() => {
-        // //Sets up the canvas
-
-        // canvas = canvasRef.current;
-        // canvas.width = props.width * 2;
-        // canvas.height = props.height * 2;
-        // canvas.style.width = `${props.width}px`;
-        // canvas.style.height = `${props.height}px`;
 
         console.log(props.uid)
-        //console.log("From Canvas: " + props.canvasId)
 
+        //Sets the width and height of all the canvases
         for (let i = 0; i < numberOfCanvases; i++) {
             if (canvasRef.current[i]) {
                 console.log(canvasRef.current[i]);
@@ -55,7 +48,13 @@ function Canvas(props) {
 
             }
         }
-
+        //Sets up the Background Canvas
+        backgroundCanvasRef.current.width = props.width * 2;
+        backgroundCanvasRef.current.height = props.height * 2;
+        backgroundCanvasRef.current.style.width = `${props.width}px`;
+        backgroundCanvasRef.current.style.height = `${props.height}px`;
+        
+        //Sets the constant properties of 2d context
         let temp = [];
         for(let i = 0; i < numberOfCanvases; i++){
             let tempCtx = canvasRef.current[i].getContext('2d');
@@ -67,15 +66,17 @@ function Canvas(props) {
         }
         setContextArr(temp);
         console.log(contextArr);
+
+        //Assigns the localContext the local client can draw on
         if(contextArr[props.canvasId]){
             localContext = contextArr[props.canvasId]; //gets the 2d context
             localContext.strokeStyle = state.colorHexCode;
     
         }
+        
         contextRef.current = localContext
 
-
-        // Firebase On Event
+        // Firebase On Draw Event
         firebase
             .database()
             .ref('board/')
@@ -96,12 +97,15 @@ function Canvas(props) {
                             }
 
                             let ctx = contextArr[child.val().canvasId]
+                            let backgroundContext = backgroundCanvasRef.current.getContext('2d');
                             ctx.strokeStyle = child.val().colorHexCode;
                             ctx.beginPath();
                             ctx.moveTo(child.val().x1, child.val().y1);
                             ctx.lineTo(child.val().x2, child.val().y2);
                             ctx.stroke();
                             ctx.closePath();
+                            backgroundContext.drawImage(canvasRef.current[child.val().canvasId],0,0);
+                            ctx.clearRect(0,0,props.width * 2, props.height * 2)
                             console.log("written");
                         }
                     });
@@ -174,6 +178,9 @@ function Canvas(props) {
     };
     const finishDrawing = () => {
         contextRef.current.closePath();
+        let backgroundContext = backgroundCanvasRef.current.getContext('2d');
+        backgroundContext.drawImage(canvasRef.current[props.canvasId],0,0);
+        contextRef.current.clearRect(0, 0, props.width, props.height);
         setIsDrawing(false);
         writeIsDrawing(false);
     };
@@ -187,9 +194,11 @@ function Canvas(props) {
 
         setPrevMouseX(offsetX);
         setPrevMouseY(offsetY);
-
         contextRef.current.lineTo(offsetX, offsetY); //Moves path to current mouse Position
         contextRef.current.stroke(); //Renders the Stroke
+        // let backgroundContext = backgroundCanvasRef.current.getContext('2d');
+        // backgroundContext.drawImage(canvasRef.current[props.canvasId],0,0);
+        // contextRef.current.clearRect(0, 0, props.width*2, props.height*2);
     };
     const clickHandler1 = () => {
 
@@ -202,14 +211,16 @@ function Canvas(props) {
             setButtonStr('Draw');
         }
     };
-    const clickHandler2 = () => {
-        contextRef.current.clearRect(0, 0, props.width, props.height);
+    const clickHandler2 = () => { //clears the background canvas
+        let backgroundContext = backgroundCanvasRef.current.getContext('2d');
+        console.log(props.width + " _____ " + props.height)
+        backgroundContext.clearRect(0, 0, 2*props.width, 2*props.height);
     };
     const test = () => {
         console.log("test1");
         if (canvasRef.current[4]) {
             console.log("test2");
-            let ctx = canvasRef.current[4].getContext('2d');
+            let ctx = backgroundCanvasRef.current.getContext('2d');
             ctx.beginPath();
             ctx.rect(20, 20, 150, 100);
             ctx.stroke();
@@ -220,6 +231,7 @@ function Canvas(props) {
         console.log("rerendered")
         setTestState(testState => !testState);
     }
+    
     return (
         <div>
             <div style={{ position: 'relative' }}>
@@ -275,7 +287,12 @@ function Canvas(props) {
                             style={{ position: "absolute", left: 0, top: 0, zIndex: key }}
                             key={key} />
                 })}
-                
+                <canvas
+                    ref={backgroundCanvasRef}
+                    id={"backgroundCanvas"}
+                    key={-1}
+                    style={{ position: "absolute", left: 0, top: 0, zIndex: 0 }}
+                />
             </div>
             <div style={{ width: props.width, height: props.height }} />
             <div>
