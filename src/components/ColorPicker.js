@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../Store';
+import { firebase, db } from './FirebaseConfig';
 
 const ColorPicker = () => {
   const [colorHexCode, setColorHexCode] = useState('#000000');
@@ -13,6 +14,14 @@ const ColorPicker = () => {
     `);
   }, [colorHexCode]);
 
+  const writeIsDrawing = (hexCode) => {
+    //Writes colorHexCode to firebase
+    console.log("written")
+    firebase.database().ref('board/' + state.googleObj.googleId).update({
+          colorHexCode: hexCode
+    });
+  }
+
   return (
     <div>
       <div>
@@ -23,6 +32,7 @@ const ColorPicker = () => {
           onChange={(e) => {
             dispatch({ type: 'setColorHexCode', obj: e.target.value });
             setColorHexCode(e.target.value);
+            writeIsDrawing(e.target.value);
           }}
         />
       </div>

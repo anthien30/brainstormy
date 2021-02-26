@@ -12,6 +12,12 @@ const Reducer = (state, action) => {
         ...state,
         colorHexCode: action.obj,
       };
+    case 'setCanvasId':
+        console.log("triggerd3 " + action.obj)
+        return {
+            ...state,
+            canvasId: action.obj
+        }
     default:
       return state;
   }

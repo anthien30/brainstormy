@@ -10,9 +10,10 @@ function CanvasContainer() {
     useEffect(() => {
         setDimensions({width:ref.current.clientWidth, height:ref.current.clientHeight})
     },[])
+    console.log("From Container:" + state.canvasId)
     return (
         <div style={{height: "500px", width: "50%", backgroundColor: "powderblue"}} ref ={ref}>
-            <Canvas width={dimensions.width} height = {dimensions.height} uid = {state.googleObj.googleId}/>
+            <Canvas width={dimensions.width} height = {dimensions.height} uid = {state.googleObj.googleId} canvasId = {state.canvasId}/>
         </div>
     )
 }

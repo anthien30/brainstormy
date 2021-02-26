@@ -5,6 +5,7 @@ import Reducer from './Reducer';
 const initialState = {
   googleObj: {},
   colorHexCode: '#000000',
+  canvasId: 0
 };
 
 const Store = ({ children }) => {
