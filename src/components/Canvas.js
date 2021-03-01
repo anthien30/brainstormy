@@ -20,7 +20,7 @@ function Canvas(props) {
     const [prevMouseY, setPrevMouseY] = useState(0); //Previous mouse Y coordinate for the server
     const [state, dispatch] = useContext(Context); //Global state containing profile object and hexColor
     const [testState, setTestState] = useState(0);
-    const [canvasLayers, setCanvasLayers] = useState(["canvas0", "canvas1", "canvas2", "canvas3", "canvas4"]);
+    const [canvasLayers, setCanvasLayers] = useState(["canvas0", "canvas1", "canvas2", "canvas3", "canvas4", "canvas5", "canvas6", "canvas7", "canvas8", "canvas9", "canvas10", "canvas11", "canvas12", "canvas13", "canvas14", "canvas15", "canvas16", "canvas17", "canvas18", "canvas19"]);
     const [contextArr,setContextArr] = useState([])
     const numberOfCanvases = 5;
 
@@ -216,21 +216,21 @@ function Canvas(props) {
         console.log(props.width + " _____ " + props.height)
         backgroundContext.clearRect(0, 0, 2*props.width, 2*props.height);
     };
-    const test = () => {
-        console.log("test1");
-        if (canvasRef.current[4]) {
-            console.log("test2");
-            let ctx = backgroundCanvasRef.current.getContext('2d');
-            ctx.beginPath();
-            ctx.rect(20, 20, 150, 100);
-            ctx.stroke();
-            console.log("test3");
-        }
-    }
-    const test2 = () => {
-        console.log("rerendered")
-        setTestState(testState => !testState);
-    }
+    // const test = () => {
+    //     console.log("test1");
+    //     if (canvasRef.current[4]) {
+    //         console.log("test2");
+    //         let ctx = backgroundCanvasRef.current.getContext('2d');
+    //         ctx.beginPath();
+    //         ctx.rect(20, 20, 150, 100);
+    //         ctx.stroke();
+    //         console.log("test3");
+    //     }
+    // }
+    // const test2 = () => {
+    //     console.log("rerendered")
+    //     setTestState(testState => !testState);
+    // }
     
     return (
         <div>
@@ -299,8 +299,8 @@ function Canvas(props) {
                 <button type="button" onClick={clickHandler1}>{buttonStr}</button>
                 <div style={{ width: '50px', height: 'auto', display: 'inline-block' }} />
                 <button type="button" onClick={clickHandler2}>Clear</button>
-                <button type="button" onClick={test}>Test</button>
-                <button type="button" onClick={test2}>ReRender</button>
+                {/* <button type="button" onClick={test}>Test</button>
+                <button type="button" onClick={test2}>ReRender</button> */}
             </div>
             <div>{someoneIsDrawing ? 'Someone is Drawing' : 'No one is Drawing'}</div>
             <div>

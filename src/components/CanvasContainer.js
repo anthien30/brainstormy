@@ -12,7 +12,7 @@ function CanvasContainer() {
     },[])
     console.log("From Container:" + state.canvasId)
     return (
-        <div style={{height: "500px", width: "50%", backgroundColor: "powderblue"}} ref ={ref}>
+        <div style={{height: "600px", width: "60%", backgroundColor: "powderblue"}} ref ={ref}>
             <Canvas width={dimensions.width} height = {dimensions.height} uid = {state.googleObj.googleId} canvasId = {state.canvasId}/>
         </div>
     )
